@@ -13,7 +13,7 @@ public:
 	shared_ptr(shared_ptr &&);
 	auto operator = (const shared_ptr&)->shared_ptr&;
 	auto operator = (shared_ptr&&)->shared_ptr&;
-	auto operator * () const->T*;
+	auto operator * () const->T&;
 	auto operator -> () const->T*;
 	auto get() const->T*;	
 	auto count()-> const size_t;
@@ -60,13 +60,15 @@ auto shared_ptr<T>::operator = (shared_ptr&& other) ->shared_ptr& {
 }
 
 template <class T>
-auto shared_ptr<T>::operator * () const ->T* {
-	return *ptr_; //test it!
+auto shared_ptr<T>::operator * () const ->T& {
+	if (ptr_ != nullptr) return ptr_;
+	else throw ("nullptr");
 }
 
 template <class T>
 auto shared_ptr<T>::operator -> () const  ->T* {
-	return *ptr_; //test it!
+	if (ptr_ != nullptr) return ptr_;
+	else throw ("nullptr");
 }
 
 template <typename T>
@@ -76,8 +78,9 @@ auto shared_ptr<T>::get() const -> T*
 }
 
 template <class T>
-auto shared_ptr<T>::count()->const size_t{
-	return *counter_; //test it!
+auto shared_ptr<T>::count()->const size_t {
+	if (counter_ != nullptr) return *counter_;
+	else return 0;
 }
 
 template <class T>

@@ -15,6 +15,7 @@ public:
 	auto operator = (shared_ptr&&)->shared_ptr&;
 	auto operator * () const->T*;
 	auto operator -> () const->T*;
+	auto get() const->T*;	
 	auto count()-> const size_t;
 	auto swap(shared_ptr&) -> void;
 	~shared_ptr();
@@ -66,6 +67,12 @@ auto shared_ptr<T>::operator * () const ->T* {
 template <class T>
 auto shared_ptr<T>::operator -> () const  ->T* {
 	return *ptr_; //test it!
+}
+
+template <typename T>
+auto shared_ptr<T>::get() const -> T*
+{
+	return ptr_;
 }
 
 template <class T>

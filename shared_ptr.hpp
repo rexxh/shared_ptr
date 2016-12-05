@@ -87,3 +87,9 @@ shared_ptr<T>::~shared_ptr() {
 			delete counter_;
 	}
 }
+
+template <typename T, class ...Args>
+auto make_shared( Args && ...args ) -> shared_ptr<T>
+{
+    return shared_ptr<T>( new T( std::forward<Args>(args)... ) );
+}
